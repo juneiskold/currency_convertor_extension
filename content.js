@@ -23,4 +23,12 @@
         CAD: {symbol: 'CA$', regex: /CA\$\s?[\d,]+(\.\d{1,2})?/g},
         CNY: {symbol: '¥', regex: /¥\s?[\d,]+|[\d,]+\s?¥/g}
     };
+
+
+    async function getExchangeRate(sourceCurrency, apiKey) {
+        if (!apiKey) {
+          return fallbackRates[sourceCurrency] || 1;
+        }
+
+    }
 })

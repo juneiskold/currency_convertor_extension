@@ -123,4 +123,26 @@
         
         return originalValues.length;
     }
-})
+
+
+   
+    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    
+    if (request.action === 'convert') {
+      convertCurrencies(request.sourceCurrency, request.apiKey)
+        .then(count => {
+          sendResponse({success: true, count: count});
+        })
+        .catch(error => {
+          sendResponse({success: false, error: error.message});
+        });
+      return true;
+
+    } else if (request.action === 'restore') {
+      const count = restoreOriginalValues();
+      sendResponse({success: true, count: count});
+    }
+
+  });
+  
+})();

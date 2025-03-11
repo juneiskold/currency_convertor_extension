@@ -30,5 +30,20 @@
           return fallbackRates[sourceCurrency] || 1;
         }
 
+        try {
+            // Example API call - replace with your preferred currency API
+            const response = await fetch(`https://api.exchangerate-api.com/v4/latest/${sourceCurrency}?key=${apiKey}`);
+            const data = await response.json();
+            
+            if (data && data.rates && data.rates.ZAR) {
+              return data.rates.ZAR;
+            } else {
+              console.error('Failed to get exchange rate from API, using fallback rate');
+              return fallbackRates[sourceCurrency] || 1;
+            }
+          } catch (error) {
+            console.error('Error fetching exchange rate:', error);
+            return fallbackRates[sourceCurrency] || 1;
+        }
     }
 })

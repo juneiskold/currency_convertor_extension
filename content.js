@@ -98,4 +98,20 @@
         
         return originalValues.length;
     }
+
+
+    function getTextNodes(node) {
+        let textNodes = [];
+        
+        if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== '') {
+          textNodes.push(node);
+        } else {
+          const children = node.childNodes;
+          for (let i = 0; i < children.length; i++) {
+            textNodes = textNodes.concat(getTextNodes(children[i]));
+          }
+        }
+        
+        return textNodes;
+    }
 })

@@ -114,4 +114,13 @@
         
         return textNodes;
     }
+
+
+    function restoreOriginalValues() {
+        originalValues.forEach(item => {
+          item.node.nodeValue = item.originalValue;
+        });
+        
+        return originalValues.length;
+    }
 })

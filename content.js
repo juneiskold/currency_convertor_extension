@@ -11,5 +11,16 @@
         AUD: 12.30, // 1 AUD = 12.30 ZAR (example rate)
         CAD: 13.70, // 1 CAD = 13.70 ZAR (example rate)
         CNY: 2.55   // 1 CNY = 2.55 ZAR (example rate)
-      };
+    };
+
+
+    const currencyPatterns = {
+        USD: {symbol: '$', regex: /\$\s?[\d,]+(\.\d{1,2})?/g},
+        EUR: {symbol: '€', regex: /€\s?[\d,]+(\.\d{1,2})?|[\d,]+(\.\d{1,2})?\s?€/g},
+        GBP: {symbol: '£', regex: /£\s?[\d,]+(\.\d{1,2})?/g},
+        JPY: {symbol: '¥', regex: /¥\s?[\d,]+|[\d,]+\s?¥/g},
+        AUD: {symbol: 'AU$', regex: /AU\$\s?[\d,]+(\.\d{1,2})?/g},
+        CAD: {symbol: 'CA$', regex: /CA\$\s?[\d,]+(\.\d{1,2})?/g},
+        CNY: {symbol: '¥', regex: /¥\s?[\d,]+|[\d,]+\s?¥/g}
+    };
 })

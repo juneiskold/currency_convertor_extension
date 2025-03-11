@@ -54,4 +54,11 @@
                     .trim();
         return parseFloat(num);
     }
+
+
+    function formatNumberWithSpaces(num) {
+        let [integerPart, decimalPart] = num.toString().split('.'); 
+        integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, " "); 
+        return decimalPart ? integerPart + '.' + decimalPart : integerPart;
+    }
 })

@@ -42,5 +42,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    
+    document.getElementById('restoreButton').addEventListener('click', function() {
+        document.getElementById('status').textContent = 'Restoring...';
+        
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+          chrome.tabs.sendMessage(tabs[0].id, {
+            action: 'restore'
+          }, function(response) {
+            if (response && response.success) {
+              document.getElementById('status').textContent = 'Original values restored!';
+            } else {
+              document.getElementById('status').textContent = 'Error: ' + (response ? response.error : 'Unknown error');
+            }
+          });
+        });
+      });
 });

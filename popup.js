@@ -25,4 +25,22 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.getElementById('status').textContent = 'Converting...';
 
+
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, {
+              action: 'convert',
+              sourceCurrency: sourceCurrency,
+              apiKey: apiKey
+            }, function(response) {
+              if (response && response.success) {
+                document.getElementById('status').textContent = 'Conversion complete!';
+              } else {
+                document.getElementById('status').textContent = 'Error: ' + (response ? response.error : 'Unknown error');
+              }
+            });
+        });
+    });
+
+
+    
 });

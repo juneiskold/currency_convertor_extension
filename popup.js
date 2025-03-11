@@ -16,6 +16,13 @@ document.addEventListener('DOMContentLoaded', function() {
       
       document.getElementById('apiKey').addEventListener('change', function() {
         chrome.storage.local.set({apiKey: this.value});
-      });
+    });
+
+
+    document.getElementById('convertButton').addEventListener('click', function() {
+        const sourceCurrency = document.getElementById('sourceCurrency').value;
+        const apiKey = document.getElementById('apiKey').value;
+        
+        document.getElementById('status').textContent = 'Converting...';
 
 });

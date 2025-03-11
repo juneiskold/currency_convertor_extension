@@ -61,4 +61,41 @@
         integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, " "); 
         return decimalPart ? integerPart + '.' + decimalPart : integerPart;
     }
+
+
+    async function convertCurrencies(sourceCurrency, apiKey) {
+        
+        restoreOriginalValues();
+        originalValues = [];
+        
+        
+        const exchangeRate = await getExchangeRate(sourceCurrency, apiKey);
+        
+        const pattern = currencyPatterns[sourceCurrency].regex;
+        const textNodes = getTextNodes(document.body);
+        
+        
+        textNodes.forEach(node => {
+          const originalText = node.nodeValue;
+          if (pattern.test(originalText)) {
+            const newText = originalText.replace(pattern, match => {
+              const numValue = extractNumber(match, sourceCurrency);
+              const zarValue = (numValue * exchangeRate).toFixed(2);
+            
+              const formattedZarValue = formatNumberWithSpaces(zarValue);
+              return `R${formattedZarValue} (${match})`;
+            });
+            
+            if (originalText !== newText) {
+              originalValues.push({
+                node: node,
+                originalValue: originalText
+              });
+              node.nodeValue = newText;
+            }
+          }
+        });
+        
+        return originalValues.length;
+    }
 })

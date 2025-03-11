@@ -46,4 +46,12 @@
             return fallbackRates[sourceCurrency] || 1;
         }
     }
+
+
+    function extractNumber(str, currencyCode) {
+        let num = str.replace(currencyPatterns[currencyCode].symbol, '')
+                    .replace(/,/g, '')
+                    .trim();
+        return parseFloat(num);
+    }
 })
